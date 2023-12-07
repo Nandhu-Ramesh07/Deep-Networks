@@ -52,7 +52,7 @@ if task == "Sentiment Classification":
             with open('BP.pkl', 'rb') as file:
                 model = pickle.load(file)
         elif model_option == "DNN":
-            model = load_model('DP.keras')
+            model = load_model('DN_imdb.keras')
         elif model_option == "RNN":
             model = load_model('RN.keras')
         elif model_option == "LSTM":
