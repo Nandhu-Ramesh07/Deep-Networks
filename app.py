@@ -56,7 +56,7 @@ if task == "Sentiment Classification":
         elif model_option == "RNN":
             model = load_model('RN.keras')
         elif model_option == "LSTM":
-            model = load_model('LS.keras')
+            model = load_model('LSTM.keras')
 
         if st.button("Classify Sentiment"):
             result = sentiment_classification(new_review_text, model)
