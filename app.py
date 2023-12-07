@@ -50,7 +50,7 @@ if task == "Sentimental Analysis":
             with open('imdb_perceptron.pkl', 'rb') as file:
                 model = pickle.load(file)
         elif model_option == "Backpropagation":
-            with open('imbd_back_prop.pkl', 'rb') as file:
+            with open('imdb_back_prop.pkl', 'rb') as file:
                 model = pickle.load(file)
         elif model_option == "DNN":
             model = load_model('DN_imdb.keras')
