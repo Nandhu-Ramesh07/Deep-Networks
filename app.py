@@ -34,7 +34,7 @@ st.title("Deep Networks")
 # Choose between tasks
 task = st.selectbox('Select the Task', ['Choose one','Sentimental Analysis', 'Tumor Detection'])
 
-if task == "Sentiment Classification":
+if task == "Sentimental Analysis":
     # Input box for new review
     new_review_text = st.text_area("Enter your Review:", value="")
     if st.button("Submit") and not new_review_text.strip():
