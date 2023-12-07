@@ -10,7 +10,7 @@ import pickle
 word_to_index = imdb.get_word_index()
 
 # Function to perform sentiment classification
-def Sentimental_Analysis(new_review_text, model):
+def sentiment_classification(new_review_text, model):
     max_review_length = 500
     new_review_tokens = [word_to_index.get(word, 0) for word in new_review_text.split()]
     new_review_tokens = pad_sequences([new_review_tokens], maxlen=max_review_length)
@@ -29,43 +29,39 @@ def tumor_detection(img, model):
     return "Tumor Detected" if res else "No Tumor"
 
 # Streamlit App
-st.title("Deep Learning")
+st.title("Deep Prediction Hub")
 
 # Choose between tasks
-task = st.selectbox('Select the Task', ['Choose one','Sentimental Analysis', 'Tumor Detection'])
+task = st.radio("Select Task", ("Choose one","Sentiment Classification", "Tumor Detection"))
 
-if task == "Sentimental Analysis":
-    
-    opt= ["Perceptron","Back Propagation","DNN", "RNN", "LSTM"]
-    model_option = st.radio("Select", opt, horizontal=True)
-
-
-    # Load models dynamically based on the selected option
-    if model_option == "Perceptron":
-        with open('imdb_perceptron.pkl', 'rb') as file:
-            model = pickle.load(file)
-    elif model_option == "Back Propagation":
-        with open('imdb_back_prop.pkl', 'rb') as file:
-            model = pickle.load(file)
-    elif model_option == "DNN":
-        model = load_model('imdb_dn.keras')
-    elif model_option == "RNN":
-        model = load_model('RNN.keras')
-    elif model_option == "LSTM":
-        model = load_model('LSTM.keras')
-    
+if task == "Sentiment Classification":
     # Input box for new review
     new_review_text = st.text_area("Enter a New Review:", value="")
-
-
-    if st.button("Predict")and not new_review_text.strip():
+    if st.button("Submit") and not new_review_text.strip():
         st.warning("Please enter a review.")
-    else:
-        result = Sentimental_Analysis(new_review_text, model)
-        st.subheader("Sentiment Classification Result")
-        st.write(f"**{result}**")
 
+    if new_review_text.strip():
+        st.subheader("Choose Model for Sentiment Classification")
+        model_option = st.selectbox("Select Model", ("Perceptron", "Backpropagation", "DNN", "RNN", "LSTM"))
 
+        # Load models dynamically based on the selected option
+        if model_option == "Perceptron":
+            with open('PP.pkl', 'rb') as file:
+                model = pickle.load(file)
+        elif model_option == "Backpropagation":
+            with open('BP.pkl', 'rb') as file:
+                model = pickle.load(file)
+        elif model_option == "DNN":
+            model = load_model('DP.keras')
+        elif model_option == "RNN":
+            model = load_model('RN.keras')
+        elif model_option == "LSTM":
+            model = load_model('LS.keras')
+
+        if st.button("Classify Sentiment"):
+            result = sentiment_classification(new_review_text, model)
+            st.subheader("Sentiment Classification Result")
+            st.write(f"**{result}**")
 
 elif task == "Tumor Detection":
     st.subheader("Tumor Detection")
@@ -73,7 +69,7 @@ elif task == "Tumor Detection":
 
     if uploaded_file is not None:
         # Load the tumor detection model
-        model = load_model('CNN.keras')
+        model = load_model('CN.keras')
         st.image(uploaded_file, caption="Uploaded Image.", use_column_width=False, width=200)
         st.write("")
 
