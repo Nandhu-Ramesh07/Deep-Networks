@@ -70,7 +70,11 @@ elif task == "Tumor Detection":
 
     if uploaded_file is not None:
         # Load the tumor detection model
-        model = load_model('CN.keras')
+        model_link = "https://drive.google.com/file/d/1KYhVYadx9nrSZWDmPxyq_zBsfOmxm9Ni/view?usp=drive_link"
+        output_file = 'CNN.h5'
+        # Load the tumor detection model
+        gdown.download(model_link, output_file, quiet=False)
+        model = torch.load(output_file)
         st.image(uploaded_file, caption="Uploaded Image.", use_column_width=False, width=200)
         st.write("")
 
