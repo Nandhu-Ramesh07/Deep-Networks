@@ -29,20 +29,21 @@ def tumor_detection(img, model):
     return "Tumor Detected" if res else "No Tumor"
 
 # Streamlit App
-st.title("Deep Prediction Hub")
+st.title("Deep Networks")
 
 # Choose between tasks
-task = st.radio("Select Task", ("Choose one","Sentiment Classification", "Tumor Detection"))
+task = st.selectbox('Select the Task', ['Choose one','Sentimental Analysis', 'Tumor Detection'])
 
 if task == "Sentiment Classification":
     # Input box for new review
-    new_review_text = st.text_area("Enter a New Review:", value="")
+    new_review_text = st.text_area("Enter your Review:", value="")
     if st.button("Submit") and not new_review_text.strip():
         st.warning("Please enter a review.")
 
     if new_review_text.strip():
-        st.subheader("Choose Model for Sentiment Classification")
-        model_option = st.selectbox("Select Model", ("Perceptron", "Backpropagation", "DNN", "RNN", "LSTM"))
+        st.subheader("Choose the Model")
+        opt= ["Perceptron","Back Propagation","DNN", "RNN", "LSTM"]
+        model_option = st.radio("Select", opt, horizontal=True)
 
         # Load models dynamically based on the selected option
         if model_option == "Perceptron":
